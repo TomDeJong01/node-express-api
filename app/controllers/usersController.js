@@ -138,9 +138,6 @@ const loginUser = async (req, res) => {
   };
 
 const userTest = async (req, res) => {
-  // TestTEst
-
-  
   return res.status(status.success).send("userTest response");
 }
 
