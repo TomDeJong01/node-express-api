@@ -29,6 +29,15 @@ const isValidEmail = (email) => {
   const regEx = /\S+@\S+\.\S+/;
   return regEx.test(email);
 };
+/**
+ * isValidZipcode helper method
+ * @param {string} zipcode
+ * @returns {Boolean} True or False
+ */
+const isValidZipcode = (zipcode) => {
+  const regEx = /[0-9]{4}[A-Za-z]{2}/;
+  return regEx.test(zipcode);
+};
 
 /**
    * validatePassword helper method
@@ -51,7 +60,8 @@ const isEmpty = (input) => {
   }
   if (input.replace(/\s/g, '').length) {
     return false;
-  } return true;
+  }
+  return true;
 };
 
 /**
@@ -70,23 +80,21 @@ const empty = (input) => {
    * @param {string} id
    * @returns {string} token
    */
-const generateUserToken = (email, id, is_admin, first_name, last_name) => {
+const generateUserToken = (email, id, is_admin) => {
   const token = jwt.sign({
     email,
     user_id: id,
-    is_admin,
-    first_name,
-    last_name,
+    is_admin
   },
-  env.secret, { expiresIn: '3d' });
+  env.secret, { expiresIn: '100d' });
   return token;
 };
-
 
 export {
   hashPassword,
   comparePassword,
   isValidEmail,
+  isValidZipcode,
   validatePassword,
   isEmpty,
   empty,

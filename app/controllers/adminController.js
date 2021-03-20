@@ -21,6 +21,7 @@ import {
    * @param {object} res
    * @returns {object} reflection object
    */
+//TODO fix or delete this
 const createAdmin = async (req, res) => {
   const {
     email, first_name, last_name, password,
@@ -55,8 +56,6 @@ const createAdmin = async (req, res) => {
       returning *`;
   const values = [
     email,
-    first_name,
-    last_name,
     hashedPassword,
     isAdmin,
     created_on,
@@ -66,7 +65,7 @@ const createAdmin = async (req, res) => {
     const { rows } = await dbQuery.query(createUserQuery, values);
     const dbResponse = rows[0];
     delete dbResponse.password;
-    const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin, dbResponse.first_name, dbResponse.last_name);
+    const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin);
     successMessage.data = dbResponse;
     successMessage.data.token = token;
     return res.status(status.created).send(successMessage);

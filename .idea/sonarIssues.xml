@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/controllers/adminController.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/controllers/orderController.js">
           <value>
             <set />
@@ -33,6 +38,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/helpers/status.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/helpers/validations.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/middlewares/verifyAuth.js">
           <value>
             <set />
@@ -53,7 +68,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/routes/usersRoute.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/server.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/package.json">
           <value>
             <set />
           </value>
@@ -79,6 +104,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/app-routing.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/app.component.css">
           <value>
             <set />
           </value>
@@ -158,12 +188,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/user-detail/user-detail.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/user-detail/user-detail.component.ts">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/user-detail/user.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/polyfills.ts">
           <value>
             <set />
           </value>

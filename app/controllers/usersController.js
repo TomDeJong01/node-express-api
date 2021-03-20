@@ -8,13 +8,15 @@ import {
   comparePassword,
   isValidEmail,
   validatePassword,
+  isValidZipcode,
   isEmpty,
-  generateUserToken,
+  generateUserToken, empty,
 } from '../helpers/validations';
 
 import {
   errorMessage, successMessage, status,
 } from '../helpers/status';
+import jwt from "jsonwebtoken";
 
 /**
    * Create A User
@@ -23,42 +25,46 @@ import {
    * @returns {object} reflection object
    */
 const createUser = async (req, res) => {
-  const {
-    email, first_name, last_name, password,
-  } = req.body;
-
+  const {email, password, zipcode, street, house_nr, place} = req.body;
   const created_on = moment(new Date());
-  if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(password)) {
-    errorMessage.error = 'Email, password, first name and last name field cannot be empty';
+  const decodedPassword = Buffer.from(password, 'base64').toString('binary')
+
+  if (isEmpty(email) || isEmpty(decodedPassword) || isEmpty(zipcode) || isEmpty(street) || empty(house_nr) || isEmpty(place)) {
+    errorMessage.error = 'Email, password, zipcode, street, house number and place  field cannot be empty';
     return res.status(status.bad).send(errorMessage);
   }
   if (!isValidEmail(email)) {
     errorMessage.error = 'Please enter a valid Email';
     return res.status(status.bad).send(errorMessage);
   }
-  if (!validatePassword(password)) {
-    errorMessage.error = 'Password must be more than five(5) characters';
+  if (!isValidZipcode(zipcode.replace(' ', ''))) {
+    errorMessage.error = 'Enter a valid zipcode';
     return res.status(status.bad).send(errorMessage);
   }
-  const hashedPassword = hashPassword(password);
+  if (!Number.isInteger(house_nr)) {
+    errorMessage.error = "house number must be a number"
+    return res.status(status.bad).send(errorMessage);
+  }
+
+  const hashedPassword = hashPassword(decodedPassword);
   const createUserQuery = `INSERT INTO
-      users(email, first_name, last_name, password, created_on)
-      VALUES($1, $2, $3, $4, $5)
+      users(email, password, zipcode, street, house_nr, place, created_on)
+      VALUES($1, $2, $3, $4, $5, $6, $7)
       returning *`;
   const values = [
     email,
-    first_name,
-    last_name,
     hashedPassword,
+    zipcode,
+    street,
+    house_nr,
+    place,
     created_on,
   ];
-
   try {
     const { rows } = await dbQuery.query(createUserQuery, values);
     const dbResponse = rows[0];
     delete dbResponse.password;
-    const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin, dbResponse.first_name, dbResponse.last_name);
-    successMessage.data = dbResponse;
+    const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin);
     successMessage.data.token = token;
     return res.status(status.created).send(successMessage);
   } catch (error) {
@@ -79,11 +85,13 @@ const createUser = async (req, res) => {
    */
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  const decodedPassword = Buffer.from(password, 'base64').toString('binary')
+
   if (isEmpty(email) || isEmpty(password)) {
     errorMessage.error = 'Email or Password detail is missing';
     return res.status(status.bad).send(errorMessage);
   }
-  if (!isValidEmail(email) || !validatePassword(password)) {
+  if (!isValidEmail(email) || !validatePassword(decodedPassword)) {
     errorMessage.error = 'Please enter a valid Email or Password';
     return res.status(status.bad).send(errorMessage);
   }
@@ -95,14 +103,13 @@ const loginUser = async (req, res) => {
       errorMessage.error = 'User with this email does not exist';
       return res.status(status.notfound).send(errorMessage);
     }
-    if (!comparePassword(dbResponse.password, password)) {
+    if (!comparePassword(dbResponse.password, decodedPassword)) {
       errorMessage.error = 'The password you provided is incorrect';
       return res.status(status.bad).send(errorMessage);
     }
-    const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin, dbResponse.first_name, dbResponse.last_name);
+    const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin);
     delete dbResponse.password;
-    successMessage.data = dbResponse;
-    successMessage.data.token = token;
+    successMessage.data = token;
     return res.status(status.success).send(successMessage);
   } catch (error) {
     errorMessage.error = 'Operation was not successful';
@@ -141,9 +148,24 @@ const userTest = async (req, res) => {
   return res.status(status.success).send("userTest response");
 }
 
+const validateToken = async(req, res) => {
+  const { token} = req.headers;
+  try {
+    if(jwt.verify(token, process.env.SECRET)) {
+      return res.status(status.success).send(successMessage);
+    }
+  } catch (e) {
+    errorMessage.error = 'Token not valid';
+    return res.status(status.error).send(errorMessage);
+  }
+  errorMessage.error = 'Token not valid';
+  return res.status(status.error).send(errorMessage);
+}
+
 export {
   createUser,
   loginUser,
   searchFirstnameOrLastname,
   userTest,
+  validateToken,
 };
