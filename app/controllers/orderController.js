@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 const getUserOrder = async (req, res) => {
     const { token} = req.headers;
     const decodedToken =  jwt.verify(token, process.env.SECRET);
-    const query = 'SELECT * FROM "order" WHERE user_id = ' + decodedToken.user_id
+    const query = 'SELECT * FROM "order" WHERE user_id = ' + decodedToken.user_id + "ORDER BY order_id"
     try {
         const { rows } = await dbQuery.query(query);
         successMessage.data = rows;
@@ -20,6 +20,10 @@ const createOrder = async (req, res) => {
     const { token } = req.headers;
     const decoded =  jwt.verify(token, process.env.SECRET);
     const orderProducts = req.body;
+    if(orderProducts.length < 1) {
+        errorMessage.error = 'Order has no products';
+        return res.status(status.error).send(errorMessage);
+    }
     const createOrderQuery = 'INSERT INTO "order" (user_id, order_status) VALUES ($1, $2) returning *;'
     const values = [decoded.user_id, "pending"]
 

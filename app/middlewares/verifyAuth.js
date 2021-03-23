@@ -22,15 +22,14 @@ const isAdmin = async (req, res, next) => {
   }
   try {
     const decoded =  jwt.verify(token, process.env.SECRET);
-    if(decoded.is_admin) {
-      return true;
-    }
-    return false;
+    console.log("is_admin =  " + decoded.is_admin)
+    return decoded.is_admin
   } catch (error) {
     errorMessage.error = 'Not Authorized'
     return res.status(status.unauthorized).send(errorMessage);
   }
 }
+
 const verifyToken = async (req, res, next) => {
   const { token } = req.headers;
   if (!token) {
@@ -43,8 +42,6 @@ const verifyToken = async (req, res, next) => {
       email: decoded.email,
       user_id: decoded.user_id,
       is_admin: decoded.is_admin,
-      first_name: decoded.first_name,
-      last_name: decoded.last_name,
     };
     next();
   } catch (error) {

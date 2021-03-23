@@ -48,6 +48,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/middlewares/storage.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/middlewares/verifyAuth.js">
           <value>
             <set />
@@ -79,6 +84,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/package.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/admin/add-product/add-product.component.html">
           <value>
             <set />
           </value>
@@ -179,6 +189,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/shopping-cart/Shopping-cart.service.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/shopping-cart/shopping-cart.component.html">
           <value>
             <set />
           </value>
