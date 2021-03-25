@@ -40,7 +40,7 @@ const getProduct = async (req, res) => {
 }
 
 const getCategories = async (req, res) => {
-  const query = 'SELECT DISTINCT category FROM product'
+  const query = 'SELECT DISTINCT category FROM product ORDER BY category'
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
@@ -52,10 +52,8 @@ const getCategories = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
-  console.log("in addProduct")
   const newProduct = req.body;
   const { is_admin } = req.user;
-  console.log(newProduct);
 
   if (!is_admin === true) {
     errorMessage.error = 'You are unauthorized for this action';
@@ -67,12 +65,10 @@ const addProduct = async (req, res) => {
       'VALUES (\''+newProduct.name+'\', \''+newProduct.category+'\', '+newProduct.price+', \''+newProduct.brewery+'\', ' +
       '\''+newProduct.imgurl+'\', '+newProduct.alcoholpercentage+', '+newProduct.fermentation+')'
   try{
-    console.log(query);
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows[0];
     return res.send(successMessage)
   }catch (e) {
-    console.log(e);
     errorMessage.error = 'Operation was not successful';
     return res.status(status.error).send(errorMessage);
   }

@@ -22,7 +22,6 @@ const isAdmin = async (req, res, next) => {
   }
   try {
     const decoded =  jwt.verify(token, process.env.SECRET);
-    console.log("is_admin =  " + decoded.is_admin)
     return decoded.is_admin
   } catch (error) {
     errorMessage.error = 'Not Authorized'

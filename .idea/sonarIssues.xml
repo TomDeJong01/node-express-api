@@ -38,6 +38,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/db/dev/dbConnection.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/helpers/status.js">
           <value>
             <set />
@@ -88,7 +93,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/README.md">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/package.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/admin/add-product/add-product.component.css">
           <value>
             <set />
           </value>
@@ -103,12 +118,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/admin/admin.component.css">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/admin/admin.component.html">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/admin/admin.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/admin/product-list-item/product-list-item.component.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/admin/product-list-item/product-list-item.component.html">
           <value>
             <set />
           </value>
@@ -148,6 +178,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/header/header.component.css">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/header/header.component.html">
           <value>
             <set />
@@ -158,7 +193,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/home/home.component.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/home/home.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/home/home.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/login/login.component.css">
           <value>
             <set />
           </value>
@@ -169,6 +219,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/login/login.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/login/register/register.component.css">
           <value>
             <set />
           </value>
@@ -188,6 +243,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/shop/product/product.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/shop/product/product.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/shop/shop.component.ts">
           <value>
             <set />
@@ -199,6 +264,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/shopping-cart/Shopping-cart.service.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/shopping-cart/shopping-cart.component.css">
           <value>
             <set />
           </value>

@@ -65,7 +65,7 @@ const createUser = async (req, res) => {
     const dbResponse = rows[0];
     delete dbResponse.password;
     const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin);
-    successMessage.data.token = token;
+    successMessage.data = token;
     return res.status(status.created).send(successMessage);
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
