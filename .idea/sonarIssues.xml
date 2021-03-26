@@ -43,6 +43,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/helpers/seed.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/helpers/status.js">
           <value>
             <set />
@@ -178,6 +183,31 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/product-form/add-product.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/product-form/product-form.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/product-list-item/admin-product-list-item.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/product-list-item/admin-product.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/product-list-item/product-list-item.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/header/header.component.css">
           <value>
             <set />
@@ -238,6 +268,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/service/shop.service.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/shop/product.model.ts">
           <value>
             <set />
@@ -249,6 +284,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/shop/product/product.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/shop/shop.component.html">
           <value>
             <set />
           </value>
@@ -289,6 +329,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/user-detail/user-detail.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/user-detail/user.model.ts">
           <value>
             <set />
           </value>

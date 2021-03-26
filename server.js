@@ -4,7 +4,6 @@ import cors from 'cors';
 import env from './env';
 import usersRoute from './app/routes/usersRoute';
 import seedRoute from './app/routes/seedRoute';
-import adminRoute from './app/routes/adminRoute';
 import productsRoute from "./app/routes/productsRoute";
 import orderRoute from "./app/routes/orderRoute";
 
@@ -18,7 +17,6 @@ app.use(express.json());
 
 app.use('/api/v1', usersRoute);
 app.use('/api/v1', seedRoute);
-app.use('/api/v1', adminRoute);
 app.use('/api/v1/products', productsRoute);
 app.use('/api/v1/order', orderRoute);
 

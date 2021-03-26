@@ -7,7 +7,7 @@ pool.on('connect', () => {
 
 
 /**
- * SEED Admin User
+ * SEED User
  */
 const seed = () => {
   const seedUserQuery = `INSERT INTO users VALUES ( default, 'test@test.test', 'test@test.test', '${hashPassword('test@test.test')}', '1234AB', 'streetName', 10, 'plaatsnaam', false, NOW());`;
