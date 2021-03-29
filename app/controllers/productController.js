@@ -1,16 +1,6 @@
 import dbQuery from '../db/dev/dbQuery';
 import {errorMessage, successMessage, status } from '../helpers/status';
 import jwt from "jsonwebtoken";
-var multer  = require('multer');
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
-});
 
 const getAllProducts = async (req, res) => {
   const query = `SELECT * FROM product`;
@@ -28,9 +18,23 @@ const getAllProducts = async (req, res) => {
 
 const getProduct = async (req, res) => {
   const product_id = req.params.id;
-  const query = ' SELECT * FROM product WHERE id = ' + product_id
+  const { is_admin } = req.user;
+
+  if(!is_admin) {
+    errorMessage.error = 'You are unauthorized for this action';
+    return res.status(status.unauthorized).send(errorMessage);
+  }
+
+  if (!Number.isInteger(product_id)) {
+    errorMessage.bad = 'bad request, no product id'
+    return res.status(status.unauthorized).send(errorMessage);
+  }
+
+  const query = ' SELECT * FROM product WHERE id = $1;';
+  const values = [product_id];
+
   try{
-    const { rows } = await dbQuery.query(query);
+    const { rows } = await dbQuery.query(query, values);
     successMessage.data = rows[0];
     return res.send(successMessage)
   }catch (e) {
@@ -55,12 +59,13 @@ const addProduct = async (req, res) => {
   const newProduct = req.body;
   const { is_admin } = req.user;
 
-  if (!is_admin === true) {
+  if (!is_admin) {
     errorMessage.error = 'You are unauthorized for this action';
     return res.status(status.unauthorized).send(errorMessage);
   }
   newProduct.alcoholpercentage = newProduct.alcoholpercentage === undefined ? null : newProduct.alcoholpercentage;
   newProduct.fermentation = newProduct.fermentation === undefined ? null : newProduct.fermentation;
+  newProduct.imgurl = newProduct.imgurl === undefined ? null : newProduct.imgurl;
   const query = 'INSERT INTO product (name, category, price, brewery, imgurl, alcoholpercentage, fermentation) ' +
       'VALUES (\''+newProduct.name+'\', \''+newProduct.category+'\', '+newProduct.price+', \''+newProduct.brewery+'\', ' +
       '\''+newProduct.imgurl+'\', '+newProduct.alcoholpercentage+', '+newProduct.fermentation+')'
@@ -77,7 +82,7 @@ const addProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const newProduct = req.body;
   const { is_admin } = req.user;
-  if (!is_admin === true) {
+  if (!is_admin) {
     errorMessage.error = 'You are unauthorized for this action';
     return res.status(status.unauthorized).send(errorMessage);
   }

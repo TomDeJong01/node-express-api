@@ -3,11 +3,11 @@ import {errorMessage, status, successMessage} from '../helpers/status';
 import jwt from "jsonwebtoken";
 
 const getUserOrder = async (req, res) => {
-    const { token} = req.headers;
-    const decodedToken =  jwt.verify(token, process.env.SECRET);
-    const query = 'SELECT * FROM "order" WHERE user_id = ' + decodedToken.user_id + "ORDER BY order_id"
+    const { user_id } = req.user;
+    const query = 'SELECT * FROM "order" WHERE user_id = $1 ORDER BY order_id;';
+    const values = [user_id]
     try {
-        const { rows } = await dbQuery.query(query);
+        const { rows } = await dbQuery.query(query, values);
         successMessage.data = rows;
     } catch (e) {
         errorMessage.error = 'Operation was not successful';
@@ -17,15 +17,14 @@ const getUserOrder = async (req, res) => {
 }
 
 const createOrder = async (req, res) => {
-    const { token } = req.headers;
-    const decoded =  jwt.verify(token, process.env.SECRET);
+    const { user_id } = req.user;
     const orderProducts = req.body;
     if(orderProducts.length < 1) {
         errorMessage.error = 'Order has no products';
         return res.status(status.error).send(errorMessage);
     }
     const createOrderQuery = 'INSERT INTO "order" (user_id, order_status) VALUES ($1, $2) returning *;'
-    const values = [decoded.user_id, "pending"]
+    const values = [user_id, "pending"]
 
     try {
         let { rows } = await dbQuery.query(createOrderQuery, values);
@@ -41,8 +40,10 @@ const createOrder = async (req, res) => {
 function orderProductsInsertQuery(orderProducts, orderId) {
     let query = "";
     orderProducts.forEach(orderItem => {
-        query += 'INSERT INTO "order_product" (order_id, product_id, amount) VALUES ('+
-            orderId+', '+orderItem.product.id+', '+orderItem.amount+');'
+        if(orderItem.amount > 0) {
+            query += 'INSERT INTO "order_product" (order_id, product_id, amount) VALUES ('+
+                orderId+', '+orderItem.product.id+', '+orderItem.amount+');'
+        }
     })
     return query;
 }

@@ -7,7 +7,7 @@ import {storage, fileFilter} from "../middlewares/storage";
 
 const router = express.Router();
 router.get("/categories", getCategories);
-router.get("/:id", getProduct);
+router.get("/:id", verifyToken, getProduct);
 router.get("/", getAllProducts);
 
 router.put("/updateProduct", verifyToken, updateProduct);
