@@ -21,6 +21,7 @@ app.use('/api/v1/products', productsRoute);
 app.use('/api/v1/order', orderRoute);
 
 
+// app.listen(env.port).on('listening', () => {
 app.listen(env.port, "0.0.0.0").on('listening', () => {
     console.log(`live on port ${env.port}`);
 });

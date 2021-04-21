@@ -31,6 +31,7 @@ const seedUser = () => {
 };
 
 pool.on('remove', () => {
+  console.log('seed');
   console.log('client removed');
   process.exit(0);
 });

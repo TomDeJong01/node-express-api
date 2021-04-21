@@ -51,15 +51,7 @@ const createUser = async (req, res) => {
       users(email, password, zipcode, street, house_nr, place, created_on)
       VALUES($1, $2, $3, $4, $5, $6, $7)
       returning *`;
-  const values = [
-    email,
-    hashedPassword,
-    zipcode,
-    street,
-    house_nr,
-    place,
-    created_on,
-  ];
+  const values = [email, hashedPassword, zipcode, street, house_nr, place, created_on];
   try {
     const { rows } = await dbQuery.query(createUserQuery, values);
     const dbResponse = rows[0];
@@ -80,7 +72,6 @@ const createUser = async (req, res) => {
    * Signin
    * @param {object} req
    * @param {object} res
-   * @returns {object} user object
    */
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
