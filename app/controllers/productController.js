@@ -21,10 +21,10 @@ const getProduct = async (req, res) => {
     errorMessage.error = 'You are unauthorized for this action';
     return res.status(status.unauthorized).send(errorMessage);
   }
-
-  if (!Number.isInteger(product_id)) {
+  
+  if (Number(product_id) < 1) {
     errorMessage.bad = 'bad request, no product id'
-    return res.status(status.unauthorized).send(errorMessage);
+    return res.status(status.bad).send(errorMessage);
   }
 
   const query = ' SELECT * FROM product WHERE id = $1;';
