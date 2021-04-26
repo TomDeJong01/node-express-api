@@ -13,21 +13,6 @@ dotenv.config();
  * @param {object} next
  * @returns {object|void} response object
  */
-const isAdmin = async (req, res, next) => {
-  const { token } = req.headers;
-  if (!token) {
-    errorMessage.error = 'Token not provided';
-    return res.status(status.bad).send(errorMessage);
-  }
-  try {
-    const decoded =  jwt.verify(token, process.env.SECRET);
-    return decoded.is_admin
-  } catch (error) {
-    errorMessage.error = 'Not Authorized'
-    return res.status(status.unauthorized).send(errorMessage);
-  }
-}
-
 const verifyToken = async (req, res, next) => {
   const { token } = req.headers;
   if (!token) {
@@ -49,4 +34,4 @@ const verifyToken = async (req, res, next) => {
 };
 
 
-export {verifyToken, isAdmin};
+export {verifyToken};
