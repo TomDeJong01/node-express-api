@@ -1,6 +1,5 @@
 import dbQuery from '../db/dev/dbQuery';
 import {errorMessage, successMessage, status } from '../helpers/status';
-import jwt from "jsonwebtoken";
 
 const getAllProducts = async (req, res) => {
   const query = `SELECT * FROM product`;
@@ -12,8 +11,6 @@ const getAllProducts = async (req, res) => {
     errorMessage.error = 'Operation was not successful';
     return res.status(status.error).send(errorMessage);
   }
-  errorMessage.error = 'Operation was not successful';
-  return res.status(status.error).send(errorMessage);
 }
 
 const getProduct = async (req, res) => {

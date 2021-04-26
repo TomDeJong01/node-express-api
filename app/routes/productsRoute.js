@@ -1,5 +1,6 @@
 import express from 'express';
-var multer  = require('multer');
+
+const multer = require('multer');
 
 import {getAllProducts, getProduct, getCategories, updateProduct, addProduct} from '../controllers/productController';
 import {verifyToken} from "../middlewares/verifyAuth";

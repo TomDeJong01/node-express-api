@@ -1,10 +1,7 @@
 import pool from '../db/dev/pool';
-import {
-    hashPassword,
-  } from '../helpers/validations';
-import {
-  status,
-} from '../helpers/status';
+import {hashPassword,} from '../helpers/validations';
+import {status,} from '../helpers/status';
+
 /**
    * Create A User
    * @param {object} req
@@ -17,8 +14,7 @@ const seedUser = async (req, res) => {
   
   try {
     const { rows } = await pool.query(seedUserQuery);
-    const dbResponse = rows;
-    if (!dbResponse) {
+    if (!rows) {
       return res.status(status.bad).send('Seeding Was not Successful');
     }
     return res.status(status.created).send('Seeding Users table Was Successful');

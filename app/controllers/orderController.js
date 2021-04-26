@@ -1,6 +1,5 @@
 import dbQuery from '../db/dev/dbQuery';
 import {errorMessage, status, successMessage} from '../helpers/status';
-import jwt from "jsonwebtoken";
 
 const getUserOrder = async (req, res) => {
     console.log("get user order")
@@ -46,17 +45,18 @@ const createOrder = async (req, res) => {
 }
 function orderProductsInsertQuery(orderProducts, orderId) {
     let query = "";
-    orderProducts.forEach(orderItem => {
-        if(orderItem.amount > 0) {
-            query += 'INSERT INTO "order_product" (order_id, product_id, amount) VALUES ('+orderId+', '+orderItem.product.id+', '+orderItem.amount+');'
-        }
-    })
     // orderProducts.forEach(orderItem => {
     //     if(orderItem.amount > 0) {
-    //         query += 'IF EXISTS(SELECT * FROM product WHERE id = '+orderItem.product.id+') THEN INSERT INTO "order_product" (order_id, product_id, amount) VALUES ('+
-    //             orderId+', '+orderItem.product.id+', '+orderItem.amount+') END IF;'
+    //         query += 'INSERT INTO "order_product" (order_id, product_id, amount) VALUES ('+orderId+', '+orderItem.product.id+', '+orderItem.amount+');'
     //     }
     // })
+    orderProducts.forEach(orderItem => {
+        if(orderItem.amount > 0) {
+            query += 'INSERT INTO "order_product" (order_id, product_id, amount) ' +
+                'SELECT('+orderId+', '+orderItem.product.id+', '+orderItem.amount+') ' +
+                'WHERE EXISTS(select * FROM product WHERE id = '+orderItem.product.id+');'
+        }
+    })
     return query;
 }
 

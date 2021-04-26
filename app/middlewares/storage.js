@@ -1,5 +1,3 @@
-import jwt from "jsonwebtoken";
-
 const multer = require('multer');
 
 const fileFilter = (req, file, cb) => {

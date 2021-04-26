@@ -45,9 +45,7 @@ const isValidZipcode = (zipcode) => {
    * @returns {Boolean} True or False
    */
 const validatePassword = (password) => {
-  if (password.length <= 5 || password === '') {
-    return false;
-  } return true;
+  return !(password.length <= 5 || password === '');
 };
 /**
    * isEmpty helper method
@@ -58,10 +56,8 @@ const isEmpty = (input) => {
   if (input === undefined || input === '') {
     return true;
   }
-  if (input.replace(/\s/g, '').length) {
-    return false;
-  }
-  return true;
+  return !input.replace(/\s/g, '').length;
+
 };
 
 /**
