@@ -2,7 +2,6 @@ import dbQuery from '../db/dev/dbQuery';
 import {errorMessage, status, successMessage} from '../helpers/status';
 
 const getUserOrder = async (req, res) => {
-    console.log("get user order")
     const { user_id } = req.user;
     // const query = 'SELECT * FROM "order" WHERE user_id = $1 ORDER BY order_id;';
     const query = 'SELECT o.order_id, o.order_status, o.date, op.product_id, op.amount, p.name ' +
@@ -38,6 +37,7 @@ const createOrder = async (req, res) => {
         const insertOrderProductsQuery = orderProductsInsertQuery(orderProducts, orderId)
         await dbQuery.query(insertOrderProductsQuery);
     } catch (e) {
+        console.log(e);
         errorMessage.error = 'Operation was not successful';
         return res.status(status.error).send(errorMessage);
     }
@@ -45,15 +45,10 @@ const createOrder = async (req, res) => {
 }
 function orderProductsInsertQuery(orderProducts, orderId) {
     let query = "";
-    // orderProducts.forEach(orderItem => {
-    //     if(orderItem.amount > 0) {
-    //         query += 'INSERT INTO "order_product" (order_id, product_id, amount) VALUES ('+orderId+', '+orderItem.product.id+', '+orderItem.amount+');'
-    //     }
-    // })
     orderProducts.forEach(orderItem => {
         if(orderItem.amount > 0) {
             query += 'INSERT INTO "order_product" (order_id, product_id, amount) ' +
-                'SELECT('+orderId+', '+orderItem.product.id+', '+orderItem.amount+') ' +
+                'SELECT '+orderId+', '+orderItem.product.id+', '+orderItem.amount+' ' +
                 'WHERE EXISTS(select * FROM product WHERE id = '+orderItem.product.id+');'
         }
     })
