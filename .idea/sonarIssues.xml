@@ -18,6 +18,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/db/dev/dbConnection.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/routes/adminRoute.js">
           <value>
             <set />
@@ -133,6 +138,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/shop-product/product.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/shop/shop.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/shopping-cart/shopping-cart.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/components/shopping-cart/shopping-cart.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/header/header.component.css">
           <value>
             <set />
@@ -189,6 +214,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/app/login/register/register.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/models/Order.model.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/app/service/Shopping-cart.service.ts">
           <value>
             <set />
           </value>
@@ -274,6 +309,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../webshop/src/environments/environment.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../webshop/src/index.html">
           <value>
             <set />
           </value>
