@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "create-dev-tables": "babel-node ./app/db/dev/dbConnection createAllTables",
-    "seed-user-table": "babel-node ./app/helpers/seed seedUser",
+    "seed": "babel-node ./app/helpers/seed seed",
     "start": "nodemon --watch . --exec babel-node -- server",
     "setup": "npm-run-all -p start create-dev-tables"
   },
