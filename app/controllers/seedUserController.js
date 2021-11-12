@@ -10,7 +10,8 @@ import {status,} from '../helpers/status';
    */
 
 const seedUser = async (req, res) => {
-  const seedUserQuery = `INSERT INTO users VALUES ( default, 'test@test.test', 'test@test.test', '${hashPassword('test@test.test')}', '1234AB', 'streetName', 10, 'plaatsnaam', false, NOW());`;
+  const seedUserQuery = `INSERT INTO users VALUES ( default, 'test@test.test', 'test@test.test', 
+  '${hashPassword('test@test.test')}', '1234AB', 'streetName', 10, 'plaatsnaam', false, NOW());`;
   
   try {
     const { rows } = await pool.query(seedUserQuery);

@@ -7,7 +7,7 @@ const router = express.Router();
 
 // seed user Route
 
-// router.get('/seed/adduser', seedUser);
-// router.get('/seed/createTables', createAllTables);
+router.get('/seed/adduser', seedUser);
+router.get('/seed/createTables', createAllTables);
 
 export default router;
