@@ -1,6 +1,7 @@
 import dbQuery from '../db/dev/dbQuery';
 import {errorMessage, successMessage, status } from '../helpers/status';
 
+
 const getAllProducts = async (req, res) => {
   const query = `SELECT * FROM product`;
   try{
@@ -103,6 +104,31 @@ const updateProduct = async (req, res) => {
   }
 }
 
+const deleteProduct = async (req, res) => {
+  const product_id = req.params.id;
+  const { is_admin } =req.user;
+  const query = 'DELETE product WHERE id = $1 ;'
+  // const query = 'DELETE product WHERE id = ' + product_id + ';'
+  const values = [product_id]
+
+  if (!is_admin) {
+    errorMessage.error = 'You are unauthorized for this action';
+    return res.status(status.unauthorized).send(errorMessage);
+  }
+
+  try{
+    const { rows } = await dbQuery.query(query, values);
+    successMessage.data = rows;
+    return res.send(successMessage)
+  }catch (e) {
+    errorMessage.error = 'Operation was not successful';
+    return res.status(status.error).send(errorMessage);
+  }
+
+
+
+}
+
 
 export {
     getAllProducts,
@@ -110,4 +136,5 @@ export {
     getCategories,
     updateProduct,
     addProduct,
+    deleteProduct
 };
