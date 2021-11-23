@@ -107,8 +107,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const product_id = req.params.id;
   const { is_admin } =req.user;
-  const query = 'DELETE product WHERE id = $1 ;'
-  // const query = 'DELETE product WHERE id = ' + product_id + ';'
+  const query = 'DELETE FROM product WHERE id = $1 ;'
   const values = [product_id]
 
   if (!is_admin) {
@@ -118,7 +117,6 @@ const deleteProduct = async (req, res) => {
 
   try{
     const { rows } = await dbQuery.query(query, values);
-    successMessage.data = rows;
     return res.send(successMessage)
   }catch (e) {
     errorMessage.error = 'Operation was not successful';
