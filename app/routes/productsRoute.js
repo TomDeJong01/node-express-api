@@ -2,7 +2,7 @@ import express from 'express';
 
 const multer = require('multer');
 
-import {getAllProducts, getProduct, getActiveCategories, updateProduct, addProduct, deleteProduct} from '../controllers/productController';
+import {getAllProducts, getProduct, getActiveCategories, getAllCategories, updateProduct, addProduct, deleteProduct} from '../controllers/productController';
 import {verifyToken} from "../middlewares/verifyAuth";
 import {storage, fileFilter} from "../middlewares/storage";
 
