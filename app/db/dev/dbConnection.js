@@ -34,18 +34,19 @@ const createUserTable = () => {
 
 const createProductTable = () => {
 
-    const userCreateQuery = `create table product (
+    const productCreateQuery = `create table product (
         id                serial       not null,
         name              varchar(255) not null,
         category          varchar(255),
         price             numeric,
         brewery           varchar(255),
-        imgurl            varchar(255),
+        img            varchar(255),
         alcoholpercentage numeric,
-        fermentation      varchar(255)
+        fermentation      varchar(255),
+        category_id       numeric
     );`;
 
-    pool.query(userCreateQuery)
+    pool.query(productCreateQuery)
         .then((res) => {
             console.log(res);
             pool.end();

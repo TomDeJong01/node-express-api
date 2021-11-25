@@ -41,8 +41,20 @@ const getProduct = async (req, res) => {
   }
 }
 
-const getCategories = async (req, res) => {
+const getActiveCategories = async (req, res) => {
   const query = 'SELECT DISTINCT category FROM product ORDER BY category'
+  try{
+    const { rows } = await dbQuery.query(query);
+    successMessage.data = rows;
+    return res.send(successMessage)
+  }catch (e) {
+    errorMessage.error = 'Operation was not successful';
+    return res.status(status.error).send(errorMessage);
+  }
+}
+
+const getAllCategories = async (req, res) => {
+  const query = 'SELECT category FROM product_category;'
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
@@ -63,10 +75,10 @@ const addProduct = async (req, res) => {
   }
   newProduct.alcoholpercentage = newProduct.alcoholpercentage === undefined ? null : newProduct.alcoholpercentage;
   newProduct.fermentation = newProduct.fermentation === undefined ? null : newProduct.fermentation;
-  newProduct.imgurl = newProduct.imgurl === undefined ? null : newProduct.imgurl;
-  const query = 'INSERT INTO product (name, category, price, brewery, imgurl, alcoholpercentage, fermentation) ' +
+  newProduct.img = newProduct.img === undefined ? null : newProduct.img;
+  const query = 'INSERT INTO product (name, category, price, brewery, img, alcoholpercentage, fermentation) ' +
       'VALUES (\''+newProduct.name+'\', \''+newProduct.category+'\', '+newProduct.price+', \''+newProduct.brewery+'\', ' +
-      '\''+newProduct.imgurl+'\', '+newProduct.alcoholpercentage+', '+newProduct.fermentation+')'
+      '\''+newProduct.img+'\', '+newProduct.alcoholpercentage+', '+newProduct.fermentation+')'
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows[0];
@@ -89,7 +101,7 @@ const updateProduct = async (req, res) => {
       'category = \''+newProduct.category+'\', ' +
       'price = '+newProduct.price+', ' +
       'brewery = \''+newProduct.brewery+'\', ' +
-      'imgurl = \''+newProduct.imgurl+'\', ' +
+      'img = \''+newProduct.img+'\', ' +
       'alcoholpercentage = '+newProduct.alcoholpercentage+', ' +
       'fermentation = '+newProduct.fermentation+' ' +
       'WHERE id = '+newProduct.id+' returning * '
@@ -131,7 +143,8 @@ const deleteProduct = async (req, res) => {
 export {
     getAllProducts,
     getProduct,
-    getCategories,
+    getActiveCategories,
+    getAllCategories,
     updateProduct,
     addProduct,
     deleteProduct

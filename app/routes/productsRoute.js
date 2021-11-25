@@ -2,12 +2,13 @@ import express from 'express';
 
 const multer = require('multer');
 
-import {getAllProducts, getProduct, getCategories, updateProduct, addProduct, deleteProduct} from '../controllers/productController';
+import {getAllProducts, getProduct, getActiveCategories, updateProduct, addProduct, deleteProduct} from '../controllers/productController';
 import {verifyToken} from "../middlewares/verifyAuth";
 import {storage, fileFilter} from "../middlewares/storage";
 
 const router = express.Router();
-router.get("/categories", getCategories);
+router.get("/categories", getActiveCategories);
+router.get("/allCategories", getAllCategories);
 router.get("/:id", verifyToken, getProduct);
 router.get("/", getAllProducts);
 
