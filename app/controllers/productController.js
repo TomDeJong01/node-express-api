@@ -3,7 +3,7 @@ import {errorMessage, successMessage, status } from '../helpers/status';
 
 
 const getAllProducts = async (req, res) => {
-  const query = `SELECT * FROM product`;
+  const query = `SELECT * FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id`;
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
