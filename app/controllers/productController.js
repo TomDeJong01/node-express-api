@@ -3,7 +3,8 @@ import {errorMessage, successMessage, status } from '../helpers/status';
 
 
 const getAllProducts = async (req, res) => {
-  const query = `SELECT * FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id`;
+  console.log('getAllProducts')
+  const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id`;
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
@@ -42,12 +43,14 @@ const getProduct = async (req, res) => {
 }
 
 const getActiveCategories = async (req, res) => {
-  const query = 'SELECT DISTINCT category FROM product ORDER BY category'
+  console.log("getActiveCategories")
+  const query = `SELECT DISTINCT(p.category_id), pc.category FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id ORDER BY category;`
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
     return res.send(successMessage)
   }catch (e) {
+    console.log(e);
     errorMessage.error = 'Operation was not successful';
     return res.status(status.error).send(errorMessage);
   }

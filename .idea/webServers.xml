@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="285e3c5a-4f41-48a6-a7d2-1381d3ebc642" name="droplet" url="http://164.92.146.181">
+        <fileTransfer accessType="SFTP" host="164.92.146.181" port="22" sshConfigId="adbb4921-209d-4e34-9af7-cc5ebb169bf8" sshConfig="tom@164.92.146.181:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="943917e3-e9dc-4f74-a56c-b3dd00e5e3c3" name="droplet_sftp">
+        <fileTransfer accessType="SFTP" host="164.92.146.181" port="22" sshConfigId="982b4bb0-b628-49c7-bac2-1f7acab2f81d" sshConfig="sftp_user@164.92.146.181:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="pi" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="droplet" filePermissions="420" folderPermissions="493" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
+      <paths name="droplet">
+        <serverdata>
+          <mappings>
+            <mapping deploy="home/apps/webshop" local="$PROJECT_DIR$/../webshop" web="/" />
+            <mapping deploy="home/apps/node-express-api" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="droplet_sftp">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/apps/webshop" local="$PROJECT_DIR$/../webshop" web="/" />
+            <mapping deploy="/home/apps/node-express-api" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="pi">
         <serverdata>
           <mappings>
@@ -11,6 +27,5 @@
         </serverdata>
       </paths>
     </serverData>
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
