@@ -29,7 +29,7 @@ const getProduct = async (req, res) => {
     return res.status(status.bad).send(errorMessage);
   }
 
-  const query = ' SELECT * FROM product WHERE id = $1;';
+  const query = 'SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id WHERE p.id = $1;';
   const values = [product_id];
 
   try{
@@ -37,6 +37,7 @@ const getProduct = async (req, res) => {
     successMessage.data = rows[0];
     return res.send(successMessage)
   }catch (e) {
+    console.log(e);
     errorMessage.error = 'Operation was not successful';
     return res.status(status.error).send(errorMessage);
   }
@@ -57,7 +58,7 @@ const getActiveCategories = async (req, res) => {
 }
 
 const getAllCategories = async (req, res) => {
-  const query = 'SELECT category FROM product_category;'
+  const query = 'SELECT id, category FROM product_category;'
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
