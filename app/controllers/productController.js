@@ -4,7 +4,7 @@ import {errorMessage, successMessage, status } from '../helpers/status';
 
 const getAllProducts = async (req, res) => {
   console.log('getAllProducts')
-  const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id`;
+  const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p RIGHT JOIN product_category pc ON p.category_id = pc.id`;
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
