@@ -79,7 +79,6 @@ const updateProduct = async (req, res) => {
 
   try{
     const { rows } = await dbQuery.query(query, values);
-    console.log(rows[0])
     successMessage.data = rows[0];
     return res.send(successMessage)
   }catch (e) {
