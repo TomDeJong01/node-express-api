@@ -23,11 +23,9 @@ const createUserTable = () => {
 
   pool.query(userCreateQuery)
     .then((res) => {
-      console.log(res);
       pool.end();
     })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
 };

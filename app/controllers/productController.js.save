@@ -2,21 +2,11 @@ import dbQuery from '../db/dev/dbQuery';
 import {errorMessage, successMessage, status } from '../helpers/status';
 
 
-// var multer  = require('multer');
-const multer  = require('multer')
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
-});
-
 const getAllProducts = async (req, res) => {
-  const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p RIGHT JOIN product_category pc ON p.category_id = pc.id WHERE p.id NOTNULL`;
+  console.log("getAllProducts")
+  const query = `SELECT * FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id`;
   try{
+    
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
     return res.send(successMessage);
@@ -40,7 +30,7 @@ const getProduct = async (req, res) => {
     return res.status(status.bad).send(errorMessage);
   }
 
-  const query = 'SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id WHERE p.id = $1;';
+  const query = ' SELECT * FROM product WHERE id = $1;';
   const values = [product_id];
 
   try{
@@ -48,12 +38,34 @@ const getProduct = async (req, res) => {
     successMessage.data = rows[0];
     return res.send(successMessage)
   }catch (e) {
-    console.log(e);
     errorMessage.error = 'Operation was not successful';
     return res.status(status.error).send(errorMessage);
   }
 }
 
+const getActiveCategories = async (req, res) => {
+  const query = 'SELECT DISTINCT category FROM product ORDER BY category'
+  try{
+    const { rows } = await dbQuery.query(query);
+    successMessage.data = rows;
+    return res.send(successMessage)
+  }catch (e) {
+    errorMessage.error = 'Operation was not successful';
+    return res.status(status.error).send(errorMessage);
+  }
+}
+
+const getAllCategories = async (req, res) => {
+  const query = 'SELECT category FROM product_category;'
+  try{
+    const { rows } = await dbQuery.query(query);
+    successMessage.data = rows;
+    return res.send(successMessage)
+  }catch (e) {
+    errorMessage.error = 'Operation was not successful';
+    return res.status(status.error).send(errorMessage);
+  }
+}
 
 const addProduct = async (req, res) => {
   const newProduct = req.body;
@@ -63,12 +75,14 @@ const addProduct = async (req, res) => {
     errorMessage.error = 'You are unauthorized for this action';
     return res.status(status.unauthorized).send(errorMessage);
   }
-
+  newProduct.alcoholpercentage = newProduct.alcoholpercentage === undefined ? null : newProduct.alcoholpercentage;
+  newProduct.fermentation = newProduct.fermentation === undefined ? null : newProduct.fermentation;
   newProduct.img = newProduct.img === undefined ? null : newProduct.img;
-  const query = `INSERT INTO product(name, category_id, price, brewery, img) VALUES($1, $2, $3, $4, $5);`
-  const values = [newProduct.name, newProduct.category_id, newProduct.price, newProduct.brewery, newProduct.img]
+  const query = 'INSERT INTO product (name, category, price, brewery, img, alcoholpercentage, fermentation) ' +
+      'VALUES (\''+newProduct.name+'\', \''+newProduct.category+'\', '+newProduct.price+', \''+newProduct.brewery+'\', ' +
+      '\''+newProduct.img+'\', '+newProduct.alcoholpercentage+', '+newProduct.fermentation+')'
   try{
-    const { rows } = await dbQuery.query(query, values);
+    const { rows } = await dbQuery.query(query);
     successMessage.data = rows[0];
     return res.send(successMessage)
   }catch (e) {
@@ -78,27 +92,24 @@ const addProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
-  const product = req.body;
+  const newProduct = req.body;
   const { is_admin } = req.user;
   if (!is_admin) {
     errorMessage.error = 'You are unauthorized for this action';
     return res.status(status.unauthorized).send(errorMessage);
   }
   const query = 'UPDATE product p ' +
-      'SET name = \''+product.name+'\', ' +
-      'category_id = \''+product.category+'\', ' +
-      'price = '+product.price+', ' +
-      'brewery = \''+product.brewery+'\', ' +
-      'img = \''+product.img+'\', ' +
-      'WHERE id = '+product.id+' returning * '
-
-  const query2 = `UPDATE product p SET name = $1, category_id = $2, price = $3, brewery = $4, img = $5
-    WHERE id = $6;`
-  const values = [product.name, product.category_id, product.price, product.brewery, product.img, product.id]
+      'SET name = \''+newProduct.name+'\', ' +
+      'category = \''+newProduct.category+'\', ' +
+      'price = '+newProduct.price+', ' +
+      'brewery = \''+newProduct.brewery+'\', ' +
+      'img = \''+newProduct.img+'\', ' +
+      'alcoholpercentage = '+newProduct.alcoholpercentage+', ' +
+      'fermentation = '+newProduct.fermentation+' ' +
+      'WHERE id = '+newProduct.id+' returning * '
 
   try{
-    const { rows } = await dbQuery.query(query2, values);
-    console.log(rows[0])
+    const { rows } = await dbQuery.query(query);
     successMessage.data = rows[0];
     return res.send(successMessage)
   }catch (e) {
@@ -126,14 +137,17 @@ const deleteProduct = async (req, res) => {
     return res.status(status.error).send(errorMessage);
   }
 
+
+
 }
 
 
 export {
     getAllProducts,
     getProduct,
+    getActiveCategories,
+    getAllCategories,
     updateProduct,
     addProduct,
-    deleteProduct,
-    storage,
+    deleteProduct
 };

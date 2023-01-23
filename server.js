@@ -6,6 +6,7 @@ import usersRoute from './app/routes/usersRoute';
 import seedRoute from './app/routes/seedRoute';
 import productsRoute from "./app/routes/productsRoute";
 import orderRoute from "./app/routes/orderRoute";
+import categoryRoute from "./app/routes/categoryRoute";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/v1', usersRoute);
 app.use('/api/v1', seedRoute);
 app.use('/api/v1/products', productsRoute);
+app.use('/api/v1/category', categoryRoute);
 app.use('/api/v1/order', orderRoute);
 
 

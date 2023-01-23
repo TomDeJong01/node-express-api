@@ -14,6 +14,7 @@ dotenv.config();
  * @returns {object|void} response object
  */
 const verifyToken = async (req, res, next) => {
+  console.log("verifyToken")
   const { token } = req.headers;
   if (!token) {
     errorMessage.error = 'Token not provided';
