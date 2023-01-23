@@ -2,18 +2,6 @@ import dbQuery from '../db/dev/dbQuery';
 import {errorMessage, successMessage, status } from '../helpers/status';
 
 
-// var multer  = require('multer');
-const multer  = require('multer')
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
-});
-
 const getAllProducts = async (req, res) => {
   const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p RIGHT JOIN product_category pc ON p.category_id = pc.id WHERE p.id NOTNULL`;
   try{
@@ -84,20 +72,13 @@ const updateProduct = async (req, res) => {
     errorMessage.error = 'You are unauthorized for this action';
     return res.status(status.unauthorized).send(errorMessage);
   }
-  const query = 'UPDATE product p ' +
-      'SET name = \''+product.name+'\', ' +
-      'category_id = \''+product.category+'\', ' +
-      'price = '+product.price+', ' +
-      'brewery = \''+product.brewery+'\', ' +
-      'img = \''+product.img+'\', ' +
-      'WHERE id = '+product.id+' returning * '
 
-  const query2 = `UPDATE product p SET name = $1, category_id = $2, price = $3, brewery = $4, img = $5
+  const query = `UPDATE product p SET name = $1, category_id = $2, price = $3, brewery = $4, img = $5
     WHERE id = $6;`
   const values = [product.name, product.category_id, product.price, product.brewery, product.img, product.id]
 
   try{
-    const { rows } = await dbQuery.query(query2, values);
+    const { rows } = await dbQuery.query(query, values);
     console.log(rows[0])
     successMessage.data = rows[0];
     return res.send(successMessage)
@@ -135,5 +116,4 @@ export {
     updateProduct,
     addProduct,
     deleteProduct,
-    storage,
 };
