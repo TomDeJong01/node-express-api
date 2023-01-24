@@ -47,10 +47,31 @@ const addCategory = async (req, res) => {
     }
 }
 
+const deleteCategory = async (req, res) => {
+    const category_id = req.params.id;
+    const { is_admin } =req.user;
+    const query = `DELETE FROM product_category WHERE id = $1 ;`
+    const values = [category_id]
+
+    if (!is_admin) {
+        errorMessage.error = 'You are unauthorized for this action';
+        return res.status(status.unauthorized).send(errorMessage);
+    }
+
+    try{
+        const { rows } = await dbQuery.query(query, values);
+        return res.send(successMessage)
+    }catch (e) {
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    }
+
+}
 
 export {
     getActiveCategories,
     getAllCategories,
-    addCategory
+    addCategory,
+    deleteCategory
 };
 

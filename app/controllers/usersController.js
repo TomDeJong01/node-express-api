@@ -33,6 +33,10 @@ const createUser = async (req, res) => {
     errorMessage.error = 'Email, password, zipcode, street, house number and place  field cannot be empty';
     return res.status(status.bad).send(errorMessage);
   }
+  if (!validatePassword(decodedPassword)) {
+    errorMessage.error = 'password must be atleast 5 characters long'
+    return res.status(status.bad).send(errorMessage);
+  }
   if (!isValidEmail(email)) {
     errorMessage.error = 'Please enter a valid Email';
     return res.status(status.bad).send(errorMessage);

@@ -3,7 +3,8 @@ import {errorMessage, successMessage, status } from '../helpers/status';
 
 
 const getAllProducts = async (req, res) => {
-  const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p RIGHT JOIN product_category pc ON p.category_id = pc.id WHERE p.id NOTNULL`;
+  const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p 
+    RIGHT JOIN product_category pc ON p.category_id = pc.id WHERE p.id NOTNULL`;
   try{
     const { rows } = await dbQuery.query(query);
     successMessage.data = rows;
@@ -28,7 +29,8 @@ const getProduct = async (req, res) => {
     return res.status(status.bad).send(errorMessage);
   }
 
-  const query = 'SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p LEFT JOIN product_category pc ON p.category_id = pc.id WHERE p.id = $1;';
+  const query = `SELECT p.id, p.category_id, p.name, p.price, p.brewery, p.img, pc.category FROM product p 
+    LEFT JOIN product_category pc ON p.category_id = pc.id WHERE p.id = $1;`;
   const values = [product_id];
 
   try{
@@ -90,7 +92,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const product_id = req.params.id;
   const { is_admin } =req.user;
-  const query = 'DELETE FROM product WHERE id = $1 ;'
+  const query = `DELETE FROM product WHERE id = $1 ;`
   const values = [product_id]
 
   if (!is_admin) {
